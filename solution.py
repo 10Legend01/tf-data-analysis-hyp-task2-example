@@ -1,12 +1,23 @@
 import pandas as pd
 import numpy as np
 
-from scipy.stats import anderson_ksamp
+from scipy.stats import anderson_ksamp, ks_2samp, cramervonmises_2samp, mannwhitneyu
 
 chat_id = 1379613676 # Ваш chat ID, не меняйте название переменной
 
 def solution(x: np.array, y: np.array) -> bool:
-    return anderson_ksamp([x, y]).significance_level < 0.08
+    # 2 из 4
+    # return anderson_ksamp([x, y]).significance_level < 0.08
+
+    # 1 из 4
+    # return ks_2samp(x, y).pvalue < 0.08
+
+    # 3 из 4
+    return cramervonmises_2samp(x, y).pvalue < 0.08
+
+    # 1 из 4
+    # return mannwhitneyu(x, y).pvalue < 0.08
+
     # return anderson_ksamp([x, y]).pvalue < 0.08
 
 # historical_db = pd.read_csv("historical_data.csv", index_col=0)
@@ -17,11 +28,13 @@ def solution(x: np.array, y: np.array) -> bool:
 # def test(db1, db2, error):
 #     good = 0
 #     all = 0
-#     for i in range(300):
-#         for j in range(300):
+#     for i in range(200):
+#         for j in range(200):
 #             # if i == j: continue
-#             ma1 = np.array(db1[f'x{i}'])
-#             ma2 = np.array(db2[f'x{j}'])
+#             # ma1 = np.array(db1[f'x{i}'])
+#             # ma2 = np.array(db2[f'x{j}'])
+#             ma1 = np.array(db1.iloc[i])
+#             ma2 = np.array(db2.iloc[j])
 #             if solution(ma1, ma2):
 #                 good += 1
 #             all += 1
